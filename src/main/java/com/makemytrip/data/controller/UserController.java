@@ -55,7 +55,7 @@ public class UserController {
 
 
 	@PutMapping("/users/{id}")
-	public User updateUser(@PathVariable String id,@RequestBody User user) {
+	public User updateUser(@PathVariable long id,@RequestBody User user) {
 		
 		return mongoTemplate.save(user);
 	}
