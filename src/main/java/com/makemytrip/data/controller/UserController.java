@@ -19,6 +19,7 @@ import com.makemytrip.data.exception.AlreadyUserExistException;
 import com.makemytrip.data.exception.NoUserExistException;
 import com.makemytrip.data.exception.UserNotExistException;
 import com.makemytrip.data.model.User;
+import com.makemytrip.data.service.SequenceService;
 
 
 
@@ -26,7 +27,11 @@ import com.makemytrip.data.model.User;
 @CrossOrigin("*")
 public class UserController {
 
+	private final String KEY="user";
 
+	@Autowired
+	private SequenceService seqId;
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
@@ -71,6 +76,7 @@ public class UserController {
 		if(user1!=null) {
 			throw new AlreadyUserExistException("Already User Exist");
 		}
+		user.setId(seqId.getNextSequenceId(KEY));
 		return mongoTemplate.save(user);
 		
 	}
